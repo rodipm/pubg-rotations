@@ -1,35 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfigService } from './config.service';
-import { HttpResponse } from '@angular/common/http';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'PUBG-Rotations';
   requestId;
+  playerName;
+  playerRegion;
+  telemetryId;
+  telemetryURL;
+  telemetryData;
 
-  constructor(private bes: ConfigService) {
-    this.onClick();
-  }
+  constructor(private bes: ConfigService) { }
 
   onClick() {
+    // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
     this.bes.doCall()
       .subscribe((data: any) => {
-        this.requestId = data.data[0].id;
-        console.log(data.data[0].id);
-        console.log(this.requestId.slice(8));
+        this.requestId = data.data[0].relationships.matches.data[0].id;
+
+        // subscribes to ConfigSerice.doIdCall() method to get the telemetry ID to reach the telemetry URL
         this.bes.doIdCall(this.requestId)
           .subscribe((data: any) => {
-            console.log(data);
+            this.telemetryId = data.data.relationships.assets.data[0].id;
+
+            // search the included array to get acces to telemetry data
+            data.included.find((element) => {
+              if (element.id == this.telemetryId) {
+                this.telemetryURL = element.attributes.URL;
+
+                // subscribes to ConfigService.doTelemetryCall() method to retrieve telemetry data
+                this.bes.doTelemetryCall(this.telemetryURL)
+                  .subscribe((telemetryData: any) => {
+
+                    // sets results to the ConfigService
+                    this.telemetryData = telemetryData;
+                    console.log(this.telemetryData);
+                    this.bes.setResult(this.telemetryData);
+                  });
+              }
+            });
           },
             (err) => {
               console.log(err);
             });
       });
+  }
+
+  ngOnInit() {
+    this.onClick();
+    this.playerName = this.bes.getPlayerName();
+    this.playerRegion = this.bes.getPlayerRegion();
   }
 
 }

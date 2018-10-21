@@ -1,3 +1,38 @@
-<div class="container">
-  <button class="btn btn-primary" (click)="onClick()"> Test </button>
-</div>
+<head>
+  <title>PUBG-Rotations</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+  crossorigin="anonymous">
+
+<body>
+  <div class="container" [ngStyle]="{'text-allign': 'center'}">
+    <form>
+      <div class="form-row align-items-center">
+        <div class="col-auto">
+          <label class="sr-only" for="inlineFormInputGroup">Player</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Player</div>
+            </div>
+            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Player" [(ngModel)]="playerName"
+              name="playerName">
+          </div>
+        </div>
+        <div class="col-auto">
+          <label class="sr-only" for="inlineFormInputGroup">Region</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Region</div>
+            </div>
+            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Region" [(ngModel)]="playerRegion"
+              name="playerRegion">
+          </div>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-2" (click)="onClick()">Search</button>
+        </div>
+      </div>
+    </form>
+    <app-infos></app-infos>
+  </div>
+</body>
