@@ -59,4 +59,10 @@ export class ConfigService {
     setResults(telemetryData) {
         this.results = telemetryData;
     }
+
+    // filters the results by args
+    filterResults(filterFunc) {
+        if (this.results != null)
+            this.results.find(filterFunc);
+    }
 }
