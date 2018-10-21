@@ -21,10 +21,12 @@ const endpointUrl = 'https://api.pubg.com/shards/' + platformRegionShard + '/pla
 export class ConfigService {
     results;
     filterArgs;
+    filteredResults;
 
     constructor(private http: HttpClient) {
         this.results = null;
         this.filterArgs = 'LogPlayerKill';
+        this.filteredResults = null;
     }
 
     // returns observable for the endpoint http request for the last match ID
@@ -62,6 +64,11 @@ export class ConfigService {
         return this.filterArgs;
     }
 
+    // return filtered results
+    getFilteredResults() {
+        return this.filteredResults;
+    }
+
     // sets telemetry data
     setResults(telemetryData) {
         this.results = telemetryData;
@@ -71,8 +78,11 @@ export class ConfigService {
     filterResults(filterArgs) {
         if (this.results != null)
             this.results.find((element) => {
-                if (element._T == filterArgs)
-                    console.log(element);
+                if (element._T == filterArgs && element.victim.name == playerName) {
+                    this.filteredResults = element.victim;
+                    // console.log(this.filteredResults)
+                    return true;
+                }
             });
     }
 }

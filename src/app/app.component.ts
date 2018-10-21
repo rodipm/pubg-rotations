@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ConfigService } from './config.service';
 
 @Component({
@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
   telemetryURL;
   telemetryData;
   filterArgs;
+  filteredResults;
+
+  refreshInfos: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(private bes: ConfigService) { }
 
   onClick() {
@@ -39,11 +43,12 @@ export class AppComponent implements OnInit {
 
                     // sets results to the ConfigService
                     this.telemetryData = telemetryData;
-                    console.log(this.telemetryData);
                     this.bes.setResults(this.telemetryData);
 
                     //call ConfigService method to filter the results
                     this.bes.filterResults(this.filterArgs);
+                    // console.log(this.bes.filteredResults);
+                    this.filteredResults = this.bes.getFilteredResults();
                   });
               }
             });

@@ -7,12 +7,15 @@ import { ConfigService } from '../config.service';
   styleUrls: ['./infos.component.css']
 })
 export class InfosComponent implements OnInit {
-  requestResults;
+  infos;
 
   constructor(private bes: ConfigService) { }
 
   ngOnInit() {
-    this.requestResults = this.bes.getResults();
+    this.refreshInfos();
   }
 
+  refreshInfos() {
+    this.infos = this.bes.getFilteredResults() || "Waiting...";
+  }
 }
