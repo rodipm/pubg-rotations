@@ -57,6 +57,11 @@ export class ConfigService {
         return this.results;
     }
 
+    // returns filter args
+    getFilterArgs() {
+        return this.filterArgs;
+    }
+
     // sets telemetry data
     setResults(telemetryData) {
         this.results = telemetryData;

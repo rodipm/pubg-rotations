@@ -58,6 +58,7 @@ export class AppComponent implements OnInit {
     this.onClick();
     this.playerName = this.bes.getPlayerName();
     this.playerRegion = this.bes.getPlayerRegion();
+    this.filterArgs = this.bes.getFilterArgs();
   }
 
 }
