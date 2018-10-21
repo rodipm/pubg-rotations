@@ -40,7 +40,10 @@ export class AppComponent implements OnInit {
                     // sets results to the ConfigService
                     this.telemetryData = telemetryData;
                     console.log(this.telemetryData);
-                    this.bes.setResult(this.telemetryData);
+                    this.bes.setResults(this.telemetryData);
+
+                    //call ConfigService method to filter the results
+                    this.bes.filterResults(filterArgs);
                   });
               }
             });

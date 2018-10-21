@@ -56,7 +56,7 @@ export class ConfigService {
     }
 
     // sets telemetry data
-    setResult(telemetryData) {
+    setResults(telemetryData) {
         this.results = telemetryData;
     }
 }
