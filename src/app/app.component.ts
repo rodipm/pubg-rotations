@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
   telemetryURL;
   telemetryData;
   filterArgs;
-
   constructor(private bes: ConfigService) { }
 
   onClick() {
@@ -44,7 +43,7 @@ export class AppComponent implements OnInit {
                     this.bes.setResults(this.telemetryData);
 
                     //call ConfigService method to filter the results
-                    this.bes.filterResults(filterArgs);
+                    this.bes.filterResults(this.filterArgs);
                   });
               }
             });

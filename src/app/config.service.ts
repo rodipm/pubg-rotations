@@ -20,9 +20,11 @@ const endpointUrl = 'https://api.pubg.com/shards/' + platformRegionShard + '/pla
 @Injectable()
 export class ConfigService {
     results;
+    filterArgs;
 
     constructor(private http: HttpClient) {
         this.results = null;
+        this.filterArgs = 'LogPlayerKill';
     }
 
     // returns observable for the endpoint http request for the last match ID
@@ -61,8 +63,11 @@ export class ConfigService {
     }
 
     // filters the results by args
-    filterResults(filterFunc) {
+    filterResults(filterArgs) {
         if (this.results != null)
-            this.results.find(filterFunc);
+            this.results.find((element) => {
+                if (element._T == filterArgs)
+                    console.log(element);
+            });
     }
 }
