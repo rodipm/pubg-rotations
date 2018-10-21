@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from './config.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PUBG-Rotations';
+
+  constructor(private bes: ConfigService) { }
+
+  onClick() {
+    this.bes.doCall()
+      .subscribe()
+  }
+
 }
