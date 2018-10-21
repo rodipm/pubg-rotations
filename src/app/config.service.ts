@@ -8,7 +8,12 @@ const httpHeaders = {
     })
 };
 
-const endpointUrl = 'endpoint-url';
+const platformRegionShard = 'pc-sa';
+const playerName = 'ganjohan';
+const id = '';
+
+const endpointUrl = 'https://api.pubg.com/shards/' + platformRegionShard + '/players?filter[playerNames]=' + playerName;
+
 
 @Injectable()
 export class ConfigService {
@@ -17,5 +22,11 @@ export class ConfigService {
 
     doCall() {
         return this.http.get(endpointUrl, httpHeaders);
+    }
+
+    doIdCall(id) {
+
+        return this.http
+            .get('https://api.pubg.com/shards/' + platformRegionShard + '/players/' + id);
     }
 }
