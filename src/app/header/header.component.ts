@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ConfigService } from '../config.service';
 
 @Component({
@@ -8,12 +8,12 @@ import { ConfigService } from '../config.service';
 })
 export class HeaderComponent implements OnInit {
   requestId;
-  playerName;
-  playerRegion;
+  @Input() playerName;
+  @Input() playerRegion;
   telemetryId;
   telemetryURL;
   telemetryData;
-  filterArgs;
+  @Input() filterArgs;
   filteredResults;
 
   @Output() refreshInfos = new EventEmitter<any>();
@@ -56,8 +56,8 @@ export class HeaderComponent implements OnInit {
                     //call ConfigService method to filter the results
                     this.bes.filterResults(this.filterArgs);
                     this.filteredResults = this.bes.filteredResults;
-                    // console.log(this.filteredResults);
-                    this.refreshInfos.emit(this.filteredResults);
+                    console.log(this.filteredResults);
+                    this.refreshInfos.emit(this.filteredResults.object);
                   });
               }
             });
@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onClick() {
+    // TODO: refresh ConfiServices playerName, playerRegion, filterArgs
     this.processRequest();
   }
 }
