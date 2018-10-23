@@ -26,9 +26,10 @@ export class HeaderComponent implements OnInit {
     this.playerRegion = this.bes.getPlayerRegion();
     this.filterArgs = this.bes.getFilterArgs();
     this.filteredResults = this.bes.getFilteredResults();
+    this.processRequest();
   }
 
-  onClick() {
+  processRequest() {
     // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
     this.bes.doCall()
       .subscribe((data: any) => {
@@ -54,8 +55,8 @@ export class HeaderComponent implements OnInit {
 
                     //call ConfigService method to filter the results
                     this.bes.filterResults(this.filterArgs);
-                    this.filteredResults = this.bes.filteredResults.name;
-                    console.log(`Filtered Results: ${this.filteredResults}`);
+                    this.filteredResults = this.bes.filteredResults;
+                    // console.log(this.filteredResults);
                     this.refreshInfos.emit(this.filteredResults);
                   });
               }
@@ -65,5 +66,9 @@ export class HeaderComponent implements OnInit {
               console.log(err);
             });
       });
+  }
+
+  onClick() {
+    this.processRequest();
   }
 }

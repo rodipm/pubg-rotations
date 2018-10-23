@@ -4,16 +4,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 const httpHeaders = {
     headers: new HttpHeaders({
         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJiMzVmZjVjMC1iNmU2LTAxMzYtNTVhZS00OTdlYzljMDgyNDIiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTQwMDc1MDcxLCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6InB1Ymctcm90YXRpb25zIn0.wBqOY0Ue5OH707gxliuecP-aUrjIxi5l3gKuc7Y9b0A',
-        'Accept': 'application/vnd.api+json',
-        'Accept-Encoding': 'gzip'
+        'Accept': 'application/vnd.api+json'
     })
 };
 
 const platformRegionShard = 'pc-sa';
 const playerName = 'TBS_ganjohan';
 const id = '';
-
-
 const endpointUrl = 'https://api.pubg.com/shards/' + platformRegionShard + '/players?filter[playerNames]=' + playerName;
 
 
@@ -79,8 +76,7 @@ export class ConfigService {
         if (this.results != null)
             this.results.find((element) => {
                 if (element._T == filterArgs && element.victim.name == playerName) {
-                    this.filteredResults = element.victim;
-                    // console.log(this.filteredResults)
+                    this.filteredResults = element;
                     return true;
                 }
             });

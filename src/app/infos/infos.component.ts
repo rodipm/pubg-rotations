@@ -16,7 +16,11 @@ export class InfosComponent implements OnInit {
   }
 
   refreshInfos() {
-    this.infos = this.infos || "Waiting...";
-    console.log('Got To InfosComponent.refreshInfos()');
+    if (this.bes.getFilteredResults())
+      this.infos = JSON.stringify(this.bes.getFilteredResults);
+    else
+      this.infos = "Waiting data...";
+
+    console.log(this.infos);
   }
 }
