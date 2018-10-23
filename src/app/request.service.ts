@@ -24,8 +24,8 @@ export class RequestService {
         this.id = '';
         this.endpointUrl = 'https://api.pubg.com/shards/' + this.playerRegion + '/players?filter[playerNames]=' + this.playerName;
         this.results = null;
-        this.filterArgs = 'LogPlayerKill';
-        this.filteredResults = null;
+        this.filterArgs = 1;
+        this.filteredResults = [];
     }
 
     // returns observable for the endpoint http request for the last match ID
@@ -78,12 +78,14 @@ export class RequestService {
 
     // filters the results by args
     filterResults(filterArgs) {
-        if (this.results != null)
+        if (this.results != null) {
+            this.filteredResults = [];
             this.results.find((element) => {
-                if (element._T == filterArgs && element.victim.name == this.playerName) {
-                    this.filteredResults = element;
-                    return true;
+                if (element._T == 'LogPlayerPosition' && element.character.name == this.playerName && element.common.isGame > 0.1 && element.vehicle.vehicleType != "TransportAircraft" && element.vehicle.vehicleType != "Parachute") {
+                    this.filteredResults.push({ location: element.character.location, elapsedTime: element.elapsedTime });
+                    // return true;
                 }
             });
+        }
     }
 }
