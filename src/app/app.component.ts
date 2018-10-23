@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ConfigService } from './config.service';
 
 @Component({
@@ -8,62 +8,13 @@ import { ConfigService } from './config.service';
 })
 export class AppComponent implements OnInit {
   title = 'PUBG-Rotations';
-  requestId;
-  playerName;
-  playerRegion;
-  telemetryId;
-  telemetryURL;
-  telemetryData;
-  filterArgs;
-  filteredResults;
 
-  refreshInfos: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshInfos: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private bes: ConfigService) { }
-
-  onClick() {
-    // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
-    this.bes.doCall()
-      .subscribe((data: any) => {
-        this.requestId = data.data[0].relationships.matches.data[0].id;
-
-        // subscribes to ConfigSerice.doIdCall() method to get the telemetry ID to reach the telemetry URL
-        this.bes.doIdCall(this.requestId)
-          .subscribe((data: any) => {
-            this.telemetryId = data.data.relationships.assets.data[0].id;
-
-            // search the included array to get acces to telemetry data
-            data.included.find((element) => {
-              if (element.id == this.telemetryId) {
-                this.telemetryURL = element.attributes.URL;
-
-                // subscribes to ConfigService.doTelemetryCall() method to retrieve telemetry data
-                this.bes.doTelemetryCall(this.telemetryURL)
-                  .subscribe((telemetryData: any) => {
-
-                    // sets results to the ConfigService
-                    this.telemetryData = telemetryData;
-                    this.bes.setResults(this.telemetryData);
-
-                    //call ConfigService method to filter the results
-                    this.bes.filterResults(this.filterArgs);
-                    // console.log(this.bes.filteredResults);
-                    this.filteredResults = this.bes.getFilteredResults();
-                  });
-              }
-            });
-          },
-            (err) => {
-              console.log(err);
-            });
-      });
-  }
+  constructor() { }
 
   ngOnInit() {
-    this.onClick();
-    this.playerName = this.bes.getPlayerName();
-    this.playerRegion = this.bes.getPlayerRegion();
-    this.filterArgs = this.bes.getFilterArgs();
+
   }
 
 }

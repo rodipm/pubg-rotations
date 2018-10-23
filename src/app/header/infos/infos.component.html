@@ -1,0 +1,10 @@
+<div class="container" [ngStyle]="{'text-allign': 'center'}" (refreshInfos)="console.log('aaa')">
+  <form>
+    <div class="col-auto">
+      <label class="sr-only" for="inlineFormInputGroup">Results</label>
+      <div class="input-group mb-2">
+        <textarea name="results" cols="30" rows="10" class="form-control" [(ngModel)]="infos" (refreshInfos)="refreshInfos()"></textarea>
+      </div>
+    </div>
+  </form>
+</div>

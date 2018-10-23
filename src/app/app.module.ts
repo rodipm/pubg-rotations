@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
-import { InfosComponent } from './infos/infos.component';
+import { HeaderComponent } from './header/header.component';
+import { InfosComponent } from './header/infos/infos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InfosComponent
+    InfosComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

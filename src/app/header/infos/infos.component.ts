@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfigService } from '../config.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { ConfigService } from '../../config.service';
 
 @Component({
   selector: 'app-infos',
@@ -7,7 +7,7 @@ import { ConfigService } from '../config.service';
   styleUrls: ['./infos.component.css']
 })
 export class InfosComponent implements OnInit {
-  infos;
+  @Input() infos;
 
   constructor(private bes: ConfigService) { }
 
@@ -17,5 +17,6 @@ export class InfosComponent implements OnInit {
 
   refreshInfos() {
     this.infos = this.bes.getFilteredResults() || "Waiting...";
+    console.log('a');
   }
 }
