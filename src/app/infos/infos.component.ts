@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { ConfigService } from '../config.service';
+import { RequestService } from '../request.service';
 
 @Component({
   selector: 'app-infos',
@@ -9,7 +9,7 @@ import { ConfigService } from '../config.service';
 export class InfosComponent implements OnInit {
   @Input() infos;
 
-  constructor(private bes: ConfigService) { }
+  constructor(private bes: RequestService) { }
 
   ngOnInit() {
     this.refreshInfos();

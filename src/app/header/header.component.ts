@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ConfigService } from '../config.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { RequestService } from '../request.service';
 
 @Component({
   selector: 'app-header',
@@ -8,17 +8,17 @@ import { ConfigService } from '../config.service';
 })
 export class HeaderComponent implements OnInit {
   requestId;
-  playerName;
-  playerRegion;
+  @Input() playerName;
+  @Input() playerRegion;
   telemetryId;
   telemetryURL;
   telemetryData;
-  filterArgs;
+  @Input() filterArgs;
   filteredResults;
 
   @Output() refreshInfos = new EventEmitter<any>();
 
-  constructor(private bes: ConfigService) { }
+  constructor(private bes: RequestService) { }
 
   ngOnInit() {
     // initialize data
@@ -30,8 +30,8 @@ export class HeaderComponent implements OnInit {
   }
 
   processRequest() {
-    // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
-    this.bes.doCall()
+    // subscribes to RequestService.doCall() method to get the requestID to reach the match ID
+    this.bes.doCall(this.playerRegion, this.playerName)
       .subscribe((data: any) => {
         this.requestId = data.data[0].relationships.matches.data[0].id;
 
@@ -45,19 +45,19 @@ export class HeaderComponent implements OnInit {
               if (element.id == this.telemetryId) {
                 this.telemetryURL = element.attributes.URL;
 
-                // subscribes to ConfigService.doTelemetryCall() method to retrieve telemetry data
+                // subscribes to RequestService.doTelemetryCall() method to retrieve telemetry data
                 this.bes.doTelemetryCall(this.telemetryURL)
                   .subscribe((telemetryData: any) => {
 
-                    // sets results to the ConfigService
+                    // sets results to the RequestService
                     this.telemetryData = telemetryData;
                     this.bes.setResults(this.telemetryData);
 
-                    //call ConfigService method to filter the results
+                    //call RequestService method to filter the results
                     this.bes.filterResults(this.filterArgs);
                     this.filteredResults = this.bes.filteredResults;
-                    // console.log(this.filteredResults);
-                    this.refreshInfos.emit(this.filteredResults);
+                    console.log(this.filteredResults);
+                    this.refreshInfos.emit(this.filteredResults.object);
                   });
               }
             });
@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onClick() {
+    // TODO: refresh ConfiServices playerName, playerRegion, filterArgs
     this.processRequest();
   }
 }

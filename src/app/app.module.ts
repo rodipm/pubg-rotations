@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ConfigService } from './config.service';
+import { RequestService } from './request.service';
 import { HeaderComponent } from './header/header.component';
 import { InfosComponent } from './infos/infos.component';
 
@@ -19,7 +19,7 @@ import { InfosComponent } from './infos/infos.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [ConfigService],
+  providers: [RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
