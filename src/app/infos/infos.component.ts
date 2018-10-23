@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { ConfigService } from '../config.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class InfosComponent implements OnInit {
   }
 
   refreshInfos() {
-    this.infos = this.bes.getFilteredResults() || "Waiting...";
-    console.log('a');
+    this.infos = this.infos || "Waiting...";
+    console.log('Got To InfosComponent.refreshInfos()');
   }
 }

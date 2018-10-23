@@ -8,13 +8,14 @@ import { ConfigService } from './config.service';
 })
 export class AppComponent implements OnInit {
   title = 'PUBG-Rotations';
+  infos = null;
 
-  @Output() refreshInfos: EventEmitter<void> = new EventEmitter<void>();
+  constructor(private bes: ConfigService) { }
 
-  constructor() { }
+  ngOnInit() { }
 
-  ngOnInit() {
-
+  onRefreshInfos(infos) {
+    this.infos = infos;
   }
 
 }
