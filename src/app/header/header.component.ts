@@ -16,18 +16,20 @@ export class HeaderComponent implements OnInit {
   filterArgs;
   filteredResults;
 
-  @Output() refresInfos: EventEmitter<any> = new EventEmitter<any>();
+  @Output() refreshInfos = new EventEmitter<any>();
 
   constructor(private bes: ConfigService) { }
 
   ngOnInit() {
+    // initialize data
     this.playerName = this.bes.getPlayerName();
     this.playerRegion = this.bes.getPlayerRegion();
     this.filterArgs = this.bes.getFilterArgs();
     this.filteredResults = this.bes.getFilteredResults();
+    this.processRequest();
   }
 
-  onClick() {
+  processRequest() {
     // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
     this.bes.doCall()
       .subscribe((data: any) => {
@@ -53,9 +55,9 @@ export class HeaderComponent implements OnInit {
 
                     //call ConfigService method to filter the results
                     this.bes.filterResults(this.filterArgs);
-                    this.filteredResults = this.bes.filteredResults.name;
-                    console.log(this.filteredResults);
-                    this.refresInfos.emit(null);
+                    this.filteredResults = this.bes.filteredResults;
+                    // console.log(this.filteredResults);
+                    this.refreshInfos.emit(this.filteredResults);
                   });
               }
             });
@@ -64,5 +66,9 @@ export class HeaderComponent implements OnInit {
               console.log(err);
             });
       });
+  }
+
+  onClick() {
+    this.processRequest();
   }
 }

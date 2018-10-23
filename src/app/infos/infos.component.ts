@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ConfigService } from '../../config.service';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-infos',
@@ -16,7 +16,11 @@ export class InfosComponent implements OnInit {
   }
 
   refreshInfos() {
-    this.infos = this.bes.getFilteredResults() || "Waiting...";
-    console.log('a');
+    if (this.bes.getFilteredResults())
+      this.infos = JSON.stringify(this.bes.getFilteredResults);
+    else
+      this.infos = "Waiting data...";
+
+    console.log(this.infos);
   }
 }

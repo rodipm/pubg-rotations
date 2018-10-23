@@ -5,5 +5,6 @@
   crossorigin="anonymous">
 
 <body>
-  <app-header (refreshInfos)="console.log('aaa')"></app-header>
+  <app-header (refreshInfos)="onRefreshInfos($event)"></app-header>
+  <app-infos [infos]="infos"></app-infos>
 </body>
