@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
     // subscribes to RequestService.doCall() method to get the requestID to reach the match ID
     this.bes.doCall(this.playerRegion, this.playerName)
       .subscribe((data: any) => {
-        this.requestId = data.data[0].relationships.matches.data[0].id;
+        this.requestId = data.data[0].relationships.matches.data[this.filterArgs].id;
 
         // subscribes to ConfigSerice.doIdCall() method to get the telemetry ID to reach the telemetry URL
         this.bes.doIdCall(this.requestId)
@@ -55,9 +55,9 @@ export class HeaderComponent implements OnInit {
 
                     //call RequestService method to filter the results
                     this.bes.filterResults(this.filterArgs);
-                    this.filteredResults = this.bes.filteredResults;
+                    this.filteredResults = this.bes.getFilteredResults();
                     console.log(this.filteredResults);
-                    this.refreshInfos.emit(this.filteredResults.object);
+                    this.refreshInfos.emit(JSON.stringify(this.filteredResults));
                   });
               }
             });
@@ -69,7 +69,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onClick() {
-    // TODO: refresh ConfiServices playerName, playerRegion, filterArgs
     this.processRequest();
   }
 }
