@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
 
   processRequest() {
     // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
-    this.bes.doCall()
+    this.bes.doCall(this.playerRegion, this.playerName)
       .subscribe((data: any) => {
         this.requestId = data.data[0].relationships.matches.data[0].id;
 

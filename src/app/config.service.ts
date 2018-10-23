@@ -8,32 +8,39 @@ const httpHeaders = {
     })
 };
 
-const platformRegionShard = 'pc-sa';
-const playerName = 'TBS_ganjohan';
-const id = '';
-const endpointUrl = 'https://api.pubg.com/shards/' + platformRegionShard + '/players?filter[playerNames]=' + playerName;
 
 
 @Injectable()
 export class ConfigService {
+    playerRegion;
+    playerName;
+    id;
+    endpointUrl;
     results;
     filterArgs;
     filteredResults;
 
     constructor(private http: HttpClient) {
+        this.playerRegion = 'pc-sa';
+        this.playerName = 'TBS_ganjohan';
+        this.id = '';
+        this.endpointUrl = 'https://api.pubg.com/shards/' + this.playerRegion + '/players?filter[playerNames]=' + this.playerName;
         this.results = null;
         this.filterArgs = 'LogPlayerKill';
         this.filteredResults = null;
     }
 
     // returns observable for the endpoint http request for the last match ID
-    doCall() {
-        return this.http.get(endpointUrl, httpHeaders);
+    doCall(region, name) {
+        this.playerRegion = region;
+        this.playerName = name;
+        this.endpointUrl = 'https://api.pubg.com/shards/' + this.playerRegion + '/players?filter[playerNames]=' + this.playerName;
+        return this.http.get(this.endpointUrl, httpHeaders);
     }
 
     // returns observable for the endpoint http request for actual match
     doIdCall(id) {
-        return this.http.get('https://api.pubg.com/shards/' + platformRegionShard + '/matches/' + id, httpHeaders);
+        return this.http.get('https://api.pubg.com/shards/' + this.playerRegion + '/matches/' + id, httpHeaders);
     }
 
     // returns observable for the endpoint http request for the telemetry data
@@ -43,12 +50,12 @@ export class ConfigService {
 
     // returns player name
     getPlayerName() {
-        return playerName;
+        return this.playerName;
     }
 
     // returns player region
     getPlayerRegion() {
-        return platformRegionShard;
+        return this.playerRegion;
     }
 
     // returns telemetry data
@@ -75,7 +82,7 @@ export class ConfigService {
     filterResults(filterArgs) {
         if (this.results != null)
             this.results.find((element) => {
-                if (element._T == filterArgs && element.victim.name == playerName) {
+                if (element._T == filterArgs && element.victim.name == this.playerName) {
                     this.filteredResults = element;
                     return true;
                 }
