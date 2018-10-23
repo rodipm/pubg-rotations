@@ -8,10 +8,8 @@ const httpHeaders = {
     })
 };
 
-
-
 @Injectable()
-export class ConfigService {
+export class RequestService {
     playerRegion;
     playerName;
     id;

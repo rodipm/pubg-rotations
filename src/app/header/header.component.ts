@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ConfigService } from '../config.service';
+import { RequestService } from '../request.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() refreshInfos = new EventEmitter<any>();
 
-  constructor(private bes: ConfigService) { }
+  constructor(private bes: RequestService) { }
 
   ngOnInit() {
     // initialize data
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   processRequest() {
-    // subscribes to ConfigService.doCall() method to get the requestID to reach the match ID
+    // subscribes to RequestService.doCall() method to get the requestID to reach the match ID
     this.bes.doCall(this.playerRegion, this.playerName)
       .subscribe((data: any) => {
         this.requestId = data.data[0].relationships.matches.data[0].id;
@@ -45,15 +45,15 @@ export class HeaderComponent implements OnInit {
               if (element.id == this.telemetryId) {
                 this.telemetryURL = element.attributes.URL;
 
-                // subscribes to ConfigService.doTelemetryCall() method to retrieve telemetry data
+                // subscribes to RequestService.doTelemetryCall() method to retrieve telemetry data
                 this.bes.doTelemetryCall(this.telemetryURL)
                   .subscribe((telemetryData: any) => {
 
-                    // sets results to the ConfigService
+                    // sets results to the RequestService
                     this.telemetryData = telemetryData;
                     this.bes.setResults(this.telemetryData);
 
-                    //call ConfigService method to filter the results
+                    //call RequestService method to filter the results
                     this.bes.filterResults(this.filterArgs);
                     this.filteredResults = this.bes.filteredResults;
                     console.log(this.filteredResults);

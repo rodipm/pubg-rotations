@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ConfigService } from './config.service';
+import { RequestService } from './request.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'PUBG-Rotations';
   infos = null;
 
-  constructor(private bes: ConfigService) { }
+  constructor(private bes: RequestService) { }
 
   ngOnInit() { }
 
