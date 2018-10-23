@@ -17,7 +17,7 @@ export class InfosComponent implements OnInit {
 
   refreshInfos() {
     if (this.bes.getFilteredResults())
-      this.infos = this.bes.getFilteredResults()[0].location;
+      this.infos = this.bes.getFilteredResults();
     else
       this.infos = "Waiting data...";
   }
