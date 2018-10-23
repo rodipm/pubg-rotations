@@ -24,7 +24,7 @@ export class RequestService {
         this.id = '';
         this.endpointUrl = 'https://api.pubg.com/shards/' + this.playerRegion + '/players?filter[playerNames]=' + this.playerName;
         this.results = null;
-        this.filterArgs = 1;
+        this.filterArgs = 0;
         this.filteredResults = [];
     }
 
