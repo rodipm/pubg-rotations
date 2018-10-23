@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ConfigService } from '../../config.service';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-infos',

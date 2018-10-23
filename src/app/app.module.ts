@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
 import { HeaderComponent } from './header/header.component';
-import { InfosComponent } from './header/infos/infos.component';
+import { InfosComponent } from './infos/infos.component';
 
 @NgModule({
   declarations: [
