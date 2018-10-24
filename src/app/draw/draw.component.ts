@@ -18,17 +18,17 @@ export class DrawComponent implements AfterViewInit {
   img;
 
   lastFilteredArgs;
-  
-  constructor(private bes: RequestService) {}
 
-  ngAfterViewInit() {     
-    this.ctx  = this.canvasRef.nativeElement.getContext('2d');
+  constructor(private bes: RequestService) { }
+
+  ngAfterViewInit() {
+    this.ctx = this.canvasRef.nativeElement.getContext('2d');
     this.img = new Image();
     this.img.src = "https://image.winudf.com/v2/image/ZXhvY29uLnB1Ymdpc2xhbmRtYXBvZmVyYW5nZWxsb290bG9jYXRpb25zX3NjcmVlbl81XzE1MTQxOTIxMDhfMDcy/screen-5.jpg?h=800&fakeurl=1&type=.jpg";
     this.lastFilteredArgs = null;
     this.refreshImage();
   }
-  
+
   refreshImage() {
     setInterval(() => {
       if (this.bes.getFilteredResults() && this.bes.getFilteredResults() != this.lastFilteredArgs) {
@@ -43,19 +43,18 @@ export class DrawComponent implements AfterViewInit {
     console.log("painting...");
 
     // the dimensions are: 8192x8192 mapped into 800x800 => real_(x,y) = position.(x,y) * 800/8192
-    let factor = 800.0/8192.0;
+    let factor = 800.0 / 8192.0;
 
     // draw erangel background
     ctx.drawImage(this.img, 0, 0);
-    
+
     // setup line
     ctx.lineWidth = 5;
     ctx.strokeStyle = "#ff0000"
     ctx.beginPath();
     ctx.moveTo(this.bes.getFilteredResults()[0].location.x * factor, this.bes.getFilteredResults()[0].location.y * factor);
-    for(let i = 1; i < this.bes.getFilteredResults().length; i++) {
+    for (let i = 1; i < this.bes.getFilteredResults().length; i++) {
       ctx.lineTo(this.bes.getFilteredResults()[i].location.x * factor, this.bes.getFilteredResults()[i].location.y * factor);
-      console.log({x: this.bes.getFilteredResults()[i].location.x * factor, y: this.bes.getFilteredResults()[i].location.y * factor})
     }
 
     ctx.lineJoin = 'miter';
