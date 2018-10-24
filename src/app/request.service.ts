@@ -83,7 +83,6 @@ export class RequestService {
             this.results.find((element) => {
                 if (element._T == 'LogPlayerPosition' && element.character.name == this.playerName && element.common.isGame > 0.1 && element.vehicle.vehicleType != "TransportAircraft" && element.vehicle.vehicleType != "Parachute") {
                     this.filteredResults.push({ location: element.character.location, elapsedTime: element.elapsedTime });
-                    // return true;
                 }
             });
         }
