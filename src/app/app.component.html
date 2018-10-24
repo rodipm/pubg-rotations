@@ -7,4 +7,5 @@
 <body>
   <app-header (refreshInfos)="onRefreshInfos($event)"></app-header>
   <app-infos [infos]="infos"></app-infos>
+  <app-draw *ngIf="infos"></app-draw>
 </body>
