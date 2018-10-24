@@ -19,7 +19,7 @@ export class RequestService {
     filteredResults;
 
     constructor(private http: HttpClient) {
-        this.playerRegion = 'pc-sa';
+        this.playerRegion = 'pc-na';
         this.playerName = 'TBS_ganjohan';
         this.id = '';
         this.endpointUrl = 'https://api.pubg.com/shards/' + this.playerRegion + '/players?filter[playerNames]=' + this.playerName;
