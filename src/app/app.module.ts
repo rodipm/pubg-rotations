@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { RequestService } from './request.service';
 import { HeaderComponent } from './header/header.component';
 import { InfosComponent } from './infos/infos.component';
+import { DrawComponent } from './draw/draw.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InfosComponent,
-    HeaderComponent
+    HeaderComponent,
+    DrawComponent
   ],
   imports: [
     BrowserModule,
