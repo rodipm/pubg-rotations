@@ -82,7 +82,12 @@ export class RequestService {
             this.filteredResults = [];
             this.results.find((element) => {
                 if (element._T == 'LogPlayerPosition' && element.character.name == this.playerName && element.common.isGame > 0.1 && element.vehicle.vehicleType != "TransportAircraft" && element.vehicle.vehicleType != "Parachute") {
-                    this.filteredResults.push({ location: element.character.location, elapsedTime: element.elapsedTime });
+                    let location = {
+                        x: element.character.location.x / 100,
+                        y: element.character.location.y / 100
+                    };
+                    let elapsedTime = element.elapsedTime;
+                    this.filteredResults.push({ location: location, elapsedTime: elapsedTime });
                 }
             });
         }

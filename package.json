@@ -23,6 +23,7 @@
     "core-js": "^2.5.4",
     "pubg-api": "^1.1.2",
     "pubg-api-redis": "^3.7.0",
+    "pubg-typescript-api": "^1.5.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
