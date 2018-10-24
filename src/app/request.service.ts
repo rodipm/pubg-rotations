@@ -19,12 +19,12 @@ export class RequestService {
     filteredResults;
 
     constructor(private http: HttpClient) {
-        this.playerRegion = 'pc-na';
-        this.playerName = 'TBS_ganjohan';
+        this.playerRegion = 'pc-sa';
+        this.playerName = 'ganjohan';
         this.id = '';
         this.endpointUrl = 'https://api.pubg.com/shards/' + this.playerRegion + '/players?filter[playerNames]=' + this.playerName;
         this.results = null;
-        this.filterArgs = 0;
+        this.filterArgs = 3;
         this.filteredResults = [];
     }
 

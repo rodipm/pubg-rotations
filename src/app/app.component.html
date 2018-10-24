@@ -2,10 +2,19 @@
   <title>PUBG-Rotations</title>
 </head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-  crossorigin="anonymous">
+crossorigin="anonymous">
 
 <body>
-  <app-header (refreshInfos)="onRefreshInfos($event)"></app-header>
-  <app-infos [infos]="infos"></app-infos>
-  <app-draw *ngIf="infos"></app-draw>
+  <div class="container" [ngClass]="'appStyle'">
+    <div class="row">
+      <app-header (refreshInfos)="onRefreshInfos($event)"></app-header>
+    </div>
+    <br><br>
+    <div class="row">
+        <app-infos *ngIf="infos" [infos]="infos"></app-infos>
+    </div>
+    <div class="row">
+        <app-draw *ngIf="infos"></app-draw>
+    </div>
+  </div>
 </body>
