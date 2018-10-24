@@ -52,9 +52,9 @@ export class DrawComponent implements AfterViewInit {
     ctx.lineWidth = 5;
     ctx.strokeStyle = "#ff0000"
     ctx.beginPath();
-    ctx.moveTo(Math.round(this.bes.getFilteredResults()[0].location.x * factor), Math.round(this.bes.getFilteredResults()[0].location.y * factor));
+    ctx.moveTo(this.bes.getFilteredResults()[0].location.x * factor, this.bes.getFilteredResults()[0].location.y * factor);
     for(let i = 1; i < this.bes.getFilteredResults().length; i++) {
-      ctx.lineTo(Math.round(this.bes.getFilteredResults()[i].location.x * factor), Math.round(this.bes.getFilteredResults()[i].location.y * factor));
+      ctx.lineTo(this.bes.getFilteredResults()[i].location.x * factor, this.bes.getFilteredResults()[i].location.y * factor);
       console.log({x: this.bes.getFilteredResults()[i].location.x * factor, y: this.bes.getFilteredResults()[i].location.y * factor})
     }
 

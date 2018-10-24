@@ -56,8 +56,8 @@ export class HeaderComponent implements OnInit {
                     //call RequestService method to filter the results
                     this.bes.filterResults(this.filterArgs);
                     this.filteredResults = this.bes.getFilteredResults();
-                    // console.log(this.filteredResults);
-                    this.refreshInfos.emit(JSON.stringify(this.filteredResults));
+                    console.log(this.filteredResults);
+                    this.refreshInfos.emit(JSON.stringify(this.filteredResults, null, "\t"));
                   });
               }
             });
