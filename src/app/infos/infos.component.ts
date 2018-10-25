@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, AfterViewInit } from '@angular/core';
 import { RequestService } from '../request.service';
 
 @Component({
@@ -6,10 +6,17 @@ import { RequestService } from '../request.service';
   templateUrl: './infos.component.html',
   styleUrls: ['./infos.component.css']
 })
-export class InfosComponent implements OnInit {
+export class InfosComponent implements OnInit, AfterViewInit {
   @Input() infos;
-
+  
   constructor(private bes: RequestService) { }
+  
+  ngAfterViewInit(){
+    this.bes.requestEvent
+    .subscribe((event) => {
+      this.refreshInfos();
+    });
+  }
 
   ngOnInit() {
     this.refreshInfos();
@@ -17,7 +24,7 @@ export class InfosComponent implements OnInit {
 
   refreshInfos() {
     if (this.bes.getFilteredResults())
-      this.infos = this.bes.getFilteredResults();
+      this.infos = JSON.stringify(this.bes.getFilteredResults(), null, '\t');
     else
       this.infos = "Waiting data...";
   }

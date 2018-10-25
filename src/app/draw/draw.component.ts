@@ -1,12 +1,13 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { RequestService } from '../request.service';
+import { componentNeedsResolution } from '@angular/core/src/metadata/resource_loading';
 
 @Component({
   selector: 'app-draw',
   templateUrl: './draw.component.html',
   styleUrls: ['./draw.component.css']
 })
-export class DrawComponent implements AfterViewInit {
+export class DrawComponent implements AfterViewInit, OnInit {
 
   //Loading Canvas and Images html elements    
   @ViewChild('myCanvas') canvasRef: ElementRef;
@@ -21,7 +22,14 @@ export class DrawComponent implements AfterViewInit {
 
   constructor(private bes: RequestService) { }
 
+  ngOnInit() {
+  }
+  
   ngAfterViewInit() {
+    this.bes.requestEvent
+      .subscribe((event) => {
+          this.refreshImage();
+    });
     this.ctx = this.canvasRef.nativeElement.getContext('2d');
     this.img = new Image();
     this.img.src = "https://image.winudf.com/v2/image/ZXhvY29uLnB1Ymdpc2xhbmRtYXBvZmVyYW5nZWxsb290bG9jYXRpb25zX3NjcmVlbl81XzE1MTQxOTIxMDhfMDcy/screen-5.jpg?h=800&fakeurl=1&type=.jpg";
@@ -30,18 +38,13 @@ export class DrawComponent implements AfterViewInit {
   }
 
   refreshImage() {
-    setInterval(() => {
-      if (this.bes.getFilteredResults() && this.bes.getFilteredResults() != this.lastFilteredArgs) {
-        this.lastFilteredArgs = this.bes.getFilteredResults();
-        this.paint(this.ctx);
-      }
-      this.refreshImage();
-    }, 1000);
+    if (this.bes.getFilteredResults() != null && this.bes.getFilteredResults() != this.lastFilteredArgs) {
+      this.lastFilteredArgs = this.bes.getFilteredResults();
+      this.paint(this.ctx);
+    }
   }
 
   paint(ctx) {
-    console.log("painting...");
-
     // the dimensions are: 8192x8192 mapped into 800x800 => real_(x,y) = position.(x,y) * 800/8192
     let factor = 800.0 / 8192.0;
 

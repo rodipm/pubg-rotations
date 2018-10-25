@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { RequestService } from '../request.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RequestService } from '../request.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   requestId;
   @Input() playerName;
   @Input() playerRegion;
@@ -15,10 +15,19 @@ export class HeaderComponent implements OnInit {
   telemetryData;
   @Input() filterArgs;
   filteredResults;
-
-  @Output() refreshInfos = new EventEmitter<any>();
-
+    
   constructor(private bes: RequestService) { }
+  
+  ngAfterViewInit() {
+    this.bes.requestEvent
+    .subscribe((event) => {
+      // console.log(event);
+    });
+    let timer = setInterval(()=>{
+      this.processRequest();
+      clearInterval(timer)
+    }, 1000) ;
+  }
 
   ngOnInit() {
     // initialize data
@@ -26,7 +35,6 @@ export class HeaderComponent implements OnInit {
     this.playerRegion = this.bes.getPlayerRegion();
     this.filterArgs = this.bes.getFilterArgs();
     this.filteredResults = this.bes.getFilteredResults();
-    this.processRequest();
   }
 
   processRequest() {
@@ -56,8 +64,12 @@ export class HeaderComponent implements OnInit {
                     //call RequestService method to filter the results
                     this.bes.filterResults(this.filterArgs);
                     this.filteredResults = this.bes.getFilteredResults();
-                    console.log(this.filteredResults);
-                    this.refreshInfos.emit(JSON.stringify(this.filteredResults, null, "\t"));
+                    // console.log(this.filteredResults);
+                    this.bes.requestEvent
+                      .emit({
+                        'sender': 'header',
+                        'data': this.filteredResults
+                    });
                   });
               }
             });

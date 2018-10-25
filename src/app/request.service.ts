@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 const httpHeaders = {
@@ -17,7 +17,7 @@ export class RequestService {
     results;
     filterArgs;
     filteredResults;
-
+    requestEvent;
     constructor(private http: HttpClient) {
         this.playerRegion = 'pc-sa';
         this.playerName = 'g0dri';
@@ -26,6 +26,7 @@ export class RequestService {
         this.results = null;
         this.filterArgs = 0;
         this.filteredResults = [];
+        this.requestEvent = new EventEmitter<any>();
     }
 
     // returns observable for the endpoint http request for the last match ID
