@@ -24,5 +24,4 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.infos = event.data;
     });
   }
-
 }
