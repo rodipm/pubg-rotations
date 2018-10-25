@@ -1,23 +1,12 @@
 .infosStyle {
-    display: block;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    float: none;
-    z-index: auto;
-    width: 100%;
+    width: auto;
     height: auto;
     cursor: default;
-    opacity: 1;
-    margin-top: 30px;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding: 15px;
-    overflow: hidden;
+    margin-top: 10px;
+    /* margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;  */
+    padding: 70px;
     border: none;
-    -webkit-border-radius: 15px;
     border-radius: 15px;
-    -o-text-overflow: clip;
-    text-overflow: clip;
-    text-align: center;
 }

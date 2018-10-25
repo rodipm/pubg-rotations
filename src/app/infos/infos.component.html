@@ -1,7 +1,5 @@
-<div class="container">
-  <div class="infosStyle">
-    <form>
-          <textarea name="results" cols="30" rows="10" class="form-control" [(ngModel)]="infos"></textarea>
-    </form>
-  </div>
+<div [ngClass]="'infosStyle'">
+  <form>
+        <textarea name="results" cols="100000" rows="10" class="form-control" [(ngModel)]="infos"></textarea>
+  </form>
 </div>

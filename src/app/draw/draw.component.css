@@ -1,24 +1,10 @@
 .canvasStyle {
-    align-content: center;
-    display: block;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    float: none;
-    z-index: auto;
     width: 800px;
     height: 800px;
     cursor: crosshair;
-    opacity: 1;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 15px;
-    overflow: hidden;
-    border: none;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-    -o-text-overflow: clip;
-    text-overflow: clip;
-    text-align: center;
+    margin-left: 25%;
+    padding-top: 10px;
+    /* margin: 10px; */
+    /* margin-top: 30px; */
+    /* padding: 15px; */
 }

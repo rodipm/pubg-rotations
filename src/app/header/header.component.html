@@ -1,39 +1,31 @@
-<div class="container" [ngClass]="'headerStyle'">
+<div [ngClass]="'headerStyle'">
   <form>
-    <div class="form-row align-items-center">
-      <div class="col-md-3">
-        <label class="sr-only" for="inlineFormInputGroup">Player</label>
+    <div class="form-row">
+        <label class="sr-only" for="inlineFormInputGroup">Player </label>
         <div class="input-group mb-2">
           <div class="input-group-prepend">
-            <div class="input-group-text">Player</div>
+            <div class="input-group-text" [ngStyle]="{'backgroundColor': 'lightblue'}">Player</div>
           </div>
           <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Player" [(ngModel)]="playerName"
             name="playerName">
         </div>
-      </div>
-      <div class="col-md-3">
         <label class="sr-only" for="inlineFormInputGroup">Region</label>
         <div class="input-group mb-2">
           <div class="input-group-prepend">
-            <div class="input-group-text">Region</div>
+            <div class="input-group-text" [ngStyle]="{'backgroundColor': 'lightblue'}">Region</div>
           </div>
           <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Region" [(ngModel)]="playerRegion"
             name="playerRegion">
         </div>
-      </div>
-      <div class="col-md-3">
         <label class="sr-only" for="inlineFormInputGroup">Filter</label>
         <div class="input-group mb-2">
           <div class="input-group-prepend">
-            <div class="input-group-text">Filter</div>
+            <div class="input-group-text" [ngStyle]="{'backgroundColor': 'lightblue'}">Filter</div>
           </div>
           <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filter" [(ngModel)]="filterArgs"
             name="filterArgs">
         </div>
-      </div>
-      <div class="col-md-3">
-        <button type="submit" class="btn btn-primary mb-2" (click)="onClick()">Search</button>
-      </div>
+        <button type="submit" class="btn btn-primary mb-2" (click)="onClick()" [ngClass]="'inputStyle'">Search</button>
     </div>
   </form>
 </div>
